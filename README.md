@@ -1,11 +1,21 @@
 # video2ardy — video-driven motion synthesis for NVIDIA ARDY
 
-Text-to-motion models only know the actions their text encoder can name. This experiment turns a
-**video** (a real clip, or a clip generated from a rich prompt by a text-to-video model) into an
-animation produced by [ARDY](https://github.com/nv-tlabs/ardy). ARDY is used here as a
-physics-plausible motion prior and in-betweener, not as a blind text-to-motion generator. It is
-guided by sparse key-constraints taken from the video and by SDEdit-style initialisation from the
-video's own latent tokens, and a spatio-temporal critic cleans what the video estimator gets wrong.
+Text-to-motion models only know the actions their text encoder can name. This experiment uses a
+**video** as the acting reference instead (here, clips generated from rich prompts by a
+text-to-video model) and turns it into an animation produced by
+[ARDY](https://github.com/nv-tlabs/ardy). ARDY is guided by sparse key-constraints taken from the
+video and by SDEdit-style initialisation from the video's own latent tokens.
+
+**What this shows, and what it does not** (five 5-second clips, one seed, stick-figure renders):
+
+- It shows that a text-to-video clip carries acting that ARDY's text prompt cannot produce, and that
+  ARDY's constraints reproduce it to about 3 cm at the hands, inside a continuous ARDY sequence.
+- It does not show that passing through ARDY makes the motion better than the video estimate.
+  On the metrics that do not depend on our critic, the ARDY outputs have slightly more foot sliding
+  and 2 to 3.5 times the angular jerk of the plain retarget. The row "retarget + critic cleanup only",
+  which does not use ARDY, is the best one on almost every per-clip metric.
+- What ARDY adds is integration: the result is native ARDY motion that joins other ARDY motion
+  without a seam, can be driven from sparse keys, and can fill a stretch where the video is broken.
 
 ![noble clip: video, direct retarget, text only, Mode A, Mode B](results/preview_noble.gif)
 
@@ -42,44 +52,82 @@ checking corners and crouching, a captain giving orders, and a drunk sailor. Pro
 `clips/*.txt`. Per-clip tables are in [`results/summary.md`](results/summary.md). The table below
 gives medians over the five clips.
 
-| condition | foot skate cm/s | NDF | bio stress | pos. jerk | PA-MPJPE cm | hands err. cm | pose var. | asym. | seam start | seam end |
-|---|---|---|---|---|---|---|---|---|---|---|
-| direct retarget (GVHMR) | 1.03 | 3.33 | 10.66 | 85.9 | 0 | 0 | 1.00 | 1.00 | 3.87 | 10.36 |
-| retarget + critic cleanup only | 3.29 | 0.00 | 0.00 | 87.4 | 1.82 | 0.78 | 1.02 | 1.01 | – | – |
-| ARDY, text prompt only | 1.21 | 0.12 | 0.00 | 28.6 | 18.14 | 37.30 | 0.34 | 0.27 | – | – |
-| **Mode A** + critic | 2.90 | 0.37 | 0.10 | 52.6 | 2.75 | 2.81 | 1.04 | 0.96 | 0.60 | 1.50 |
-| Mode B s=0.3 + critic | 3.93 | 0.48 | 0.16 | 59.8 | 2.60 | 2.76 | 1.08 | 0.96 | 0.49 | 1.35 |
-| **Mode B s=0.5** + critic | 3.20 | 0.54 | 0.63 | 56.5 | 2.64 | 2.81 | 1.05 | 0.96 | 0.56 | 1.19 |
-| Mode B s=0.8 + critic | 2.57 | 0.59 | 0.47 | 60.5 | 2.73 | 2.89 | 1.05 | 0.94 | 0.58 | 1.21 |
-| Mode A sparse + critic | 2.09 | 0.23 | 0.00 | 39.5 | 3.33 | 5.93 | 0.94 | 0.84 | 0.67 | 1.23 |
-| Mode B s=0.5 sparse + critic | 2.54 | 0.28 | 0.03 | 56.1 | 2.73 | 4.10 | 0.91 | 0.90 | 0.52 | 1.13 |
+| condition | foot skate cm/s | pos. jerk | ang. jerk | NDF* | bio stress* | PA-MPJPE cm | hands err. cm | pose var. | asym. | seam start | seam end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| direct retarget (GVHMR) | 1.03 | 85.9 | 107 | 3.33 | 10.66 | 0 | 0 | 1.00 | 1.00 | 3.87 | 10.36 |
+| retarget + critic cleanup only (no ARDY) | 3.29 | 87.4 | 130 | 0.00 | 0.00 | 1.82 | 0.78 | 1.02 | 1.01 | – | – |
+| ARDY, text prompt only | 1.21 | 28.6 | 129 | 0.12 | 0.00 | 18.14 | 37.30 | 0.34 | 0.27 | – | – |
+| **Mode A** + critic | 2.90 | 52.6 | 244 | 0.37 | 0.10 | 2.75 | 2.81 | 1.04 | 0.96 | 0.60 | 1.50 |
+| Mode B s=0.3 + critic | 3.93 | 59.8 | 372 | 0.48 | 0.16 | 2.60 | 2.76 | 1.08 | 0.96 | 0.49 | 1.35 |
+| **Mode B s=0.5** + critic | 3.20 | 56.5 | 295 | 0.54 | 0.63 | 2.64 | 2.81 | 1.05 | 0.96 | 0.56 | 1.19 |
+| Mode B s=0.8 + critic | 2.57 | 60.5 | 287 | 0.59 | 0.47 | 2.73 | 2.89 | 1.05 | 0.94 | 0.58 | 1.21 |
+| Mode A sparse + critic | 2.09 | 39.5 | 168 | 0.23 | 0.00 | 3.33 | 5.93 | 0.94 | 0.84 | 0.67 | 1.23 |
+| Mode B s=0.5 sparse + critic | 2.54 | 56.1 | 274 | 0.28 | 0.03 | 2.73 | 4.10 | 0.91 | 0.90 | 0.52 | 1.13 |
 
 How to read it:
 
-- **NDF and bio stress** are the critic's scores: distance from the manifold of clean motion, and
-  joint-range/jerk violations. Lower is better.
-- **PA-MPJPE and hands error** are the distance from the video estimate, measured only on frames it
-  can be trusted on. **Pose variance and asymmetry** are ratios to the video.
+- **Foot skate, positional jerk and angular jerk** do not depend on the critic. Lower is better.
+- **NDF and bio stress (\*)** are the critic's own scores: distance from the manifold of clean
+  motion, and joint-range/jerk violations. They are not independent evidence. The cleanup optimises
+  them directly, and the critic was trained on motion generated by Kimodo, a model of the same
+  family and training data as ARDY, so ARDY-like motion scores well by construction.
+- **PA-MPJPE and hands error** are the frame-by-frame distance from the video estimate, measured
+  only on frames it can be trusted on. **Pose variance and asymmetry** are ratios to the video.
 - **Seam** is the joint acceleration around the start and end of the video segment inside a longer
   ARDY sequence, divided by the sequence's 90th percentile. About 1 means no visible seam. For the
-  direct retarget, the clip is pasted between ARDY frames.
+  direct retarget, the clip is hard-pasted between ARDY frames with no blending, which is the
+  weakest possible alternative.
 - Sparse means a root constraint every 10 frames, hands only on the anchors, and anchors 15–30
   frames apart.
 
 What the numbers say:
 
-- **Text only does not perform the scene.** ARDY moves cleanly but is about 37 cm away at the
-  hands: the nobleman never makes the gesture and the thief never crouches.
-- **The direct retarget is faithful but off the manifold.** It scores NDF 3.3 and bio stress 10.7,
-  and it pops when pasted into an ARDY sequence (seam 4–10).
-- **Mode A and Mode B keep the acting.** Hands stay about 3 cm from the video, with near-clean
-  critic scores and seamless stitching.
-- **With sparse constraints, Mode B keeps more of the video than Mode A.** Hands error is 4.1 cm
-  against 5.9, and pose variance is closer to the video. This is the style that SDEdit carries and
-  sparse constraints lose.
+- **The video carries acting that the text prompt does not.** The frame-by-frame hands error of
+  text-only ARDY (37 cm) overstates this, because it also counts timing differences. The fairer
+  check below still leaves text-only 4 to 10 times further from the video than Mode A and B.
+- **Mode A and Mode B reproduce the video closely** (hands about 3 cm). This is expected, since they
+  are constrained to it. It shows that ARDY's constraints hold on video-derived targets, not that
+  the motion is better.
+- **Passing through ARDY does not clean the motion on independent metrics.** Against the plain
+  retarget, the ARDY outputs have more foot sliding on three (Mode A) or four (Mode B) of five clips
+  (median 2.9–3.2 cm/s against 1.0), and the dense modes have 2 to 3.5 times the angular jerk.
+  Median positional jerk is lower. The only clip where ARDY
+  clearly helps is the broken one (drunk sailor: foot skate 81 → 27–40 cm/s).
+- **The cleanup-only row is the best on critic scores and on fidelity**, without ARDY. If the goal
+  is one clean clip from one video, retarget plus cleanup is enough.
+- **ARDY's contribution is integration.** The outputs join an ARDY sequence without a seam
+  (0.5–1.5, against 4–10 for the hard paste), and they come from sparse keys.
+- **With sparse constraints, Mode B keeps more of the video than Mode A** (hands error 4.1 cm
+  against 5.9). This is the one place where SDEdit shows an effect. It rests on five clips and one
+  seed. With dense constraints, Mode A and Mode B are indistinguishable, and the strength setting
+  changes little.
+- **The in-line critic changes nothing here.** `modeB_0.5_nc` (no critic) matches `modeB_0.5` in
+  `summary.md`. All of the critic's effect comes from the cleanup before generation.
 - **The T2V output is not always usable.** In the drunk-sailor clip, Wan turns the actor upside down
   for about a second. Those 51 frames are flagged (critic energy > 300 or motion prior > 9), get no
-  constraints and no SDEdit tokens, and ARDY stumbles through them upright.
+  constraints and no SDEdit tokens, and ARDY fills them upright. This was checked on still frames
+  and numbers only, and Mode B at 0.8 produced an odd pose there.
+
+### Is text-only really unable to do it?
+
+`check_text_baseline.py` gives text-only ARDY a fairer chance: a short motion-style prompt instead
+of the long cinematic one, five seeds, and an error that tolerates timing (subsequence DTW on
+root-relative poses, in cm). Medians over the five clips, from
+[`results/text_baseline_check.json`](results/text_baseline_check.json):
+
+| condition | body, DTW cm | hands + head, DTW cm |
+|---|---|---|
+| text only, long prompt (1 seed) | 12.8 | 25.6 |
+| text only, short prompt (median of 5 seeds) | 11.4 | 22.1 |
+| text only, short prompt (best of 5 seeds) | 10.3 | 20.1 |
+| Mode A + critic | 2.7 | 2.6 |
+| Mode B s=0.5 + critic | 2.6 | 2.7 |
+| Mode B s=0.5 sparse + critic | 2.7 | 4.0 |
+
+Per clip, the picture is mixed. Text-only does shade its eyes in the pirate clip and raises an arm
+in the captain clip. It never makes the nobleman's raised-hand gesture (hand at best 14 cm below
+the head, against 6 cm above in the video) and never crouches as the thief does (hips at 83 cm at
+best, against 56 cm).
 
 Lessons measured on the way:
 
@@ -87,18 +135,24 @@ Lessons measured on the way:
   identity. Straight fingers alone pushed the bio stress to 125.
 - With dense video constraints, the in-line critic finds no free frame to place corrective keys on.
   That is why the cleanup happens once on the whole clip, before constraints and z_ref are taken.
-  The in-line critic adds little on top of it (compare `modeB_0.5_nc`, without critic, in
-  `summary.md`).
-- ARDY's own `post_process_motion` doubled foot skate on a fast clip (tennis), so it is off.
+- ARDY's own `post_process_motion` doubled foot skate on a fast clip, so it is off.
 - Every ARDY output, text-only included, carries a small 4-frame (one-token) flicker. It dominates
   positional jerk, which is why the seam metric uses acceleration.
 
 Limitations:
 
-- On these mostly standing clips, ARDY adds a little foot sliding (2–4 cm/s against 1 cm/s for the
-  video). On a fast real clip (tennis, not published here because it is third-party footage), the
-  pipeline cut sliding from 35 to 12–15 cm/s.
-- The renders are stick figures. Nothing has been tested in a game engine yet.
+- **Small sample.** Five synthetic clips of 5 seconds, all one person standing in front of a static
+  camera, one seed per condition. No real footage is included. Differences of a centimetre or two
+  between conditions are not established.
+- **No perceptual evaluation.** Quality was judged from the metrics above, from still frames of the
+  stick-figure renders, and from one person watching the videos. There was no rating study and no
+  test on a skinned character or in a game engine.
+- **The critic is not an independent judge**, as explained above.
+- **Not reproducible as published.** The critic package and its weights are not in this repository,
+  so the ARDY steps cannot be run from it alone. The numbers come from the author's machine.
+- **The cleanup trades some foot planting for critic score.** It raised foot skate on three of
+  five clips (median 1.0 → 3.3 cm/s).
+- The related-work search below was about ten queries and read abstracts only.
 - Tested only on Windows 11 with an RTX 5070 Ti.
 
 ## Setup (Windows, as tested)
@@ -178,9 +232,9 @@ The pieces exist separately:
   [COIN](https://arxiv.org/abs/2408.16426) and
   [Motion Diffusion-Guided HMR](https://arxiv.org/abs/2411.10582).
 
-We did not find the combination tried here: projecting a T2V clip into an off-the-shelf
-autoregressive motion model, without any training, through SDEdit in its latent space, its native
-kinematic constraints and a critic cleanup.
+In a short search we did not find the combination tried here: projecting a T2V clip into an
+off-the-shelf autoregressive motion model, without any training, through SDEdit in its latent
+space, its native kinematic constraints and a critic cleanup. That is not a claim of novelty.
 
 ## Credits and licences
 

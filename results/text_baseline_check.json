@@ -1,0 +1,282 @@
+{
+ "pirate": {
+  "reference": {
+   "hand_above_head_max_cm": 2.037811279296875,
+   "hand_to_head_min_cm": 20.241793990135193,
+   "hips_min_cm": 99.78666305541992,
+   "hand_reach_max_cm": 63.8235867023468
+  },
+  "ARDY text only": {
+   "dtw_body_cm": 11.25715784728527,
+   "dtw_hands_head_cm": 20.482131368761895,
+   "hand_above_head_max_cm": -2.9442429542541504,
+   "hand_to_head_min_cm": 18.387186527252197,
+   "hips_min_cm": 99.73546266555786,
+   "hand_reach_max_cm": 64.90423083305359
+  },
+  "Mode A + critic": {
+   "dtw_body_cm": 2.747120410703973,
+   "dtw_hands_head_cm": 1.8774426399419706,
+   "hand_above_head_max_cm": 3.160381317138672,
+   "hand_to_head_min_cm": 18.76927763223648,
+   "hips_min_cm": 99.52684044837952,
+   "hand_reach_max_cm": 66.2623405456543
+  },
+  "Mode B s=0.5 + critic": {
+   "dtw_body_cm": 2.6409717776731356,
+   "dtw_hands_head_cm": 1.696301646055591,
+   "hand_above_head_max_cm": 2.475762367248535,
+   "hand_to_head_min_cm": 19.2736878991127,
+   "hips_min_cm": 99.52776432037354,
+   "hand_reach_max_cm": 65.34695625305176
+  },
+  "Mode B s=0.5 sparse + critic": {
+   "dtw_body_cm": 2.7291976221705845,
+   "dtw_hands_head_cm": 3.6624345778418865,
+   "hand_above_head_max_cm": -3.016972541809082,
+   "hand_to_head_min_cm": 16.070961952209473,
+   "hips_min_cm": 99.63204264640808,
+   "hand_reach_max_cm": 57.86387324333191
+  },
+  "text short prompt (5 seeds: median)": {
+   "dtw_body_cm": 11.395173139820162,
+   "dtw_hands_head_cm": 22.102031546751125,
+   "hand_above_head_max_cm": 8.713531494140625,
+   "hand_to_head_min_cm": 20.806317031383514,
+   "hips_min_cm": 99.62301254272461,
+   "hand_reach_max_cm": 73.3921468257904
+  },
+  "text short prompt (5 seeds: best)": {
+   "dtw_body_cm": 10.328301032317565,
+   "dtw_hands_head_cm": 20.14564543762463,
+   "hand_above_head_max_cm": 12.880492210388184,
+   "hand_to_head_min_cm": 19.407077133655548,
+   "hips_min_cm": 99.36149716377258,
+   "hand_reach_max_cm": 75.67300200462341
+  }
+ },
+ "noble": {
+  "reference": {
+   "hand_above_head_max_cm": 5.5824995040893555,
+   "hand_to_head_min_cm": 25.405308604240417,
+   "hips_min_cm": 99.95051622390747,
+   "hand_reach_max_cm": 75.02816319465637
+  },
+  "ARDY text only": {
+   "dtw_body_cm": 12.783392753777088,
+   "dtw_hands_head_cm": 25.578842047076897,
+   "hand_above_head_max_cm": -62.93662786483765,
+   "hand_to_head_min_cm": 66.23637080192566,
+   "hips_min_cm": 98.34392070770264,
+   "hand_reach_max_cm": 33.66674780845642
+  },
+  "Mode A + critic": {
+   "dtw_body_cm": 2.7316089169491056,
+   "dtw_hands_head_cm": 2.5509969880249326,
+   "hand_above_head_max_cm": 2.578902244567871,
+   "hand_to_head_min_cm": 24.127522110939026,
+   "hips_min_cm": 99.49653744697571,
+   "hand_reach_max_cm": 73.30852150917053
+  },
+  "Mode B s=0.5 + critic": {
+   "dtw_body_cm": 2.386663111547629,
+   "dtw_hands_head_cm": 2.192741983403631,
+   "hand_above_head_max_cm": 2.3224592208862305,
+   "hand_to_head_min_cm": 23.806840181350708,
+   "hips_min_cm": 99.42964315414429,
+   "hand_reach_max_cm": 73.49480986595154
+  },
+  "Mode B s=0.5 sparse + critic": {
+   "dtw_body_cm": 2.527178912704823,
+   "dtw_hands_head_cm": 3.7902282375917338,
+   "hand_above_head_max_cm": -1.728498935699463,
+   "hand_to_head_min_cm": 23.162589967250824,
+   "hips_min_cm": 99.56852197647095,
+   "hand_reach_max_cm": 66.85600876808167
+  },
+  "text short prompt (5 seeds: median)": {
+   "dtw_body_cm": 10.35598331449816,
+   "dtw_hands_head_cm": 15.61266916910274,
+   "hand_above_head_max_cm": -16.048800945281982,
+   "hand_to_head_min_cm": 46.78821563720703,
+   "hips_min_cm": 99.03368949890137,
+   "hand_reach_max_cm": 60.995471477508545
+  },
+  "text short prompt (5 seeds: best)": {
+   "dtw_body_cm": 8.531470131754075,
+   "dtw_hands_head_cm": 12.7056589512617,
+   "hand_above_head_max_cm": -14.05634880065918,
+   "hand_to_head_min_cm": 36.66259944438934,
+   "hips_min_cm": 98.21559190750122,
+   "hand_reach_max_cm": 72.10402488708496
+  }
+ },
+ "thief": {
+  "reference": {
+   "hand_above_head_max_cm": -19.698703289031982,
+   "hand_to_head_min_cm": 62.50828504562378,
+   "hips_min_cm": 55.999815464019775,
+   "hand_reach_max_cm": 73.0410635471344
+  },
+  "ARDY text only": {
+   "dtw_body_cm": 28.623271288487736,
+   "dtw_hands_head_cm": 33.48640721516321,
+   "hand_above_head_max_cm": -23.913121223449707,
+   "hand_to_head_min_cm": 34.35865342617035,
+   "hips_min_cm": 83.19274187088013,
+   "hand_reach_max_cm": 73.47834706306458
+  },
+  "Mode A + critic": {
+   "dtw_body_cm": 2.5671110413468523,
+   "dtw_hands_head_cm": 2.649234814299761,
+   "hand_above_head_max_cm": -11.261004209518433,
+   "hand_to_head_min_cm": 54.890280961990356,
+   "hips_min_cm": 55.5371880531311,
+   "hand_reach_max_cm": 76.89642310142517
+  },
+  "Mode B s=0.5 + critic": {
+   "dtw_body_cm": 2.5252613013972773,
+   "dtw_hands_head_cm": 2.6755013708025217,
+   "hand_above_head_max_cm": -16.875815391540527,
+   "hand_to_head_min_cm": 60.03621220588684,
+   "hips_min_cm": 55.65059185028076,
+   "hand_reach_max_cm": 78.10874581336975
+  },
+  "Mode B s=0.5 sparse + critic": {
+   "dtw_body_cm": 2.664172672820802,
+   "dtw_hands_head_cm": 3.9892144403175305,
+   "hand_above_head_max_cm": -23.14504384994507,
+   "hand_to_head_min_cm": 60.78340411186218,
+   "hips_min_cm": 56.02829456329346,
+   "hand_reach_max_cm": 71.1900532245636
+  },
+  "text short prompt (5 seeds: median)": {
+   "dtw_body_cm": 19.590577333165495,
+   "dtw_hands_head_cm": 23.07167958293185,
+   "hand_above_head_max_cm": -57.9358696937561,
+   "hand_to_head_min_cm": 61.30704879760742,
+   "hips_min_cm": 93.22035312652588,
+   "hand_reach_max_cm": 33.806437253952026
+  },
+  "text short prompt (5 seeds: best)": {
+   "dtw_body_cm": 17.5303168194806,
+   "dtw_hands_head_cm": 20.277482036176146,
+   "hand_above_head_max_cm": -52.687156200408936,
+   "hand_to_head_min_cm": 55.833637714385986,
+   "hips_min_cm": 88.17949295043945,
+   "hand_reach_max_cm": 37.84822225570679
+  }
+ },
+ "captain": {
+  "reference": {
+   "hand_above_head_max_cm": 25.777113437652588,
+   "hand_to_head_min_cm": 45.86852788925171,
+   "hips_min_cm": 99.1938054561615,
+   "hand_reach_max_cm": 94.75613832473755
+  },
+  "ARDY text only": {
+   "dtw_body_cm": 6.587276027706645,
+   "dtw_hands_head_cm": 11.569872788534868,
+   "hand_above_head_max_cm": 13.853955268859863,
+   "hand_to_head_min_cm": 37.10950314998627,
+   "hips_min_cm": 99.44421648979187,
+   "hand_reach_max_cm": 90.01542925834656
+  },
+  "Mode A + critic": {
+   "dtw_body_cm": 3.30463799354214,
+   "dtw_hands_head_cm": 3.168820054580768,
+   "hand_above_head_max_cm": 22.93860912322998,
+   "hand_to_head_min_cm": 40.040239691734314,
+   "hips_min_cm": 98.75643253326416,
+   "hand_reach_max_cm": 93.33562850952148
+  },
+  "Mode B s=0.5 + critic": {
+   "dtw_body_cm": 3.1613064854837103,
+   "dtw_hands_head_cm": 3.2347464822232723,
+   "hand_above_head_max_cm": 23.428404331207275,
+   "hand_to_head_min_cm": 41.79622828960419,
+   "hips_min_cm": 98.80645871162415,
+   "hand_reach_max_cm": 94.31326985359192
+  },
+  "Mode B s=0.5 sparse + critic": {
+   "dtw_body_cm": 3.414321555787285,
+   "dtw_hands_head_cm": 4.4694795867040655,
+   "hand_above_head_max_cm": 18.129336833953857,
+   "hand_to_head_min_cm": 41.043901443481445,
+   "hips_min_cm": 98.76366853713989,
+   "hand_reach_max_cm": 87.61481046676636
+  },
+  "text short prompt (5 seeds: median)": {
+   "dtw_body_cm": 11.057124174381263,
+   "dtw_hands_head_cm": 18.658719241819124,
+   "hand_above_head_max_cm": -0.18211603164672852,
+   "hand_to_head_min_cm": 31.350797414779663,
+   "hips_min_cm": 96.55917882919312,
+   "hand_reach_max_cm": 74.8259961605072
+  },
+  "text short prompt (5 seeds: best)": {
+   "dtw_body_cm": 8.777867095082398,
+   "dtw_hands_head_cm": 13.82398926871735,
+   "hand_above_head_max_cm": 10.925579071044922,
+   "hand_to_head_min_cm": 19.80382353067398,
+   "hips_min_cm": 89.18517827987671,
+   "hand_reach_max_cm": 88.3543074131012
+  }
+ },
+ "drunk": {
+  "reference": {
+   "hand_above_head_max_cm": 43.81062984466553,
+   "hand_to_head_min_cm": 32.87360966205597,
+   "hips_min_cm": 68.36216449737549,
+   "hand_reach_max_cm": 106.16763830184937
+  },
+  "ARDY text only": {
+   "dtw_body_cm": 28.45960673969864,
+   "dtw_hands_head_cm": 41.06258360520462,
+   "hand_above_head_max_cm": -6.170976161956787,
+   "hand_to_head_min_cm": 38.69972825050354,
+   "hips_min_cm": 95.12400031089783,
+   "hand_reach_max_cm": 63.410139083862305
+  },
+  "Mode A + critic": {
+   "dtw_body_cm": 23.709439707299072,
+   "dtw_hands_head_cm": 31.391239188463484,
+   "hand_above_head_max_cm": 52.993643283843994,
+   "hand_to_head_min_cm": 29.588115215301514,
+   "hips_min_cm": 88.11909556388855,
+   "hand_reach_max_cm": 103.6874771118164
+  },
+  "Mode B s=0.5 + critic": {
+   "dtw_body_cm": 24.272235517163534,
+   "dtw_hands_head_cm": 31.49666719090862,
+   "hand_above_head_max_cm": 49.40863847732544,
+   "hand_to_head_min_cm": 24.61674064397812,
+   "hips_min_cm": 89.66448307037354,
+   "hand_reach_max_cm": 103.24026346206665
+  },
+  "Mode B s=0.5 sparse + critic": {
+   "dtw_body_cm": 25.731487089655545,
+   "dtw_hands_head_cm": 32.6922082706638,
+   "hand_above_head_max_cm": 54.18213605880737,
+   "hand_to_head_min_cm": 27.018415927886963,
+   "hips_min_cm": 90.81670641899109,
+   "hand_reach_max_cm": 106.26763105392456
+  },
+  "text short prompt (5 seeds: median)": {
+   "dtw_body_cm": 32.967940632928936,
+   "dtw_hands_head_cm": 47.37124222036976,
+   "hand_above_head_max_cm": -62.51494884490967,
+   "hand_to_head_min_cm": 68.50417852401733,
+   "hips_min_cm": 97.21115231513977,
+   "hand_reach_max_cm": 35.16315817832947
+  },
+  "text short prompt (5 seeds: best)": {
+   "dtw_body_cm": 30.197047487201306,
+   "dtw_hands_head_cm": 44.69988768132741,
+   "hand_above_head_max_cm": -36.99847459793091,
+   "hand_to_head_min_cm": 56.08101487159729,
+   "hips_min_cm": 95.39303779602051,
+   "hand_reach_max_cm": 53.56608033180237
+  }
+ }
+}
