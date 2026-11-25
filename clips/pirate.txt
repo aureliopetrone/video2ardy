@@ -1,0 +1,3 @@
+seed=1
+action=An exhausted pirate captain in a long dark coat and a tricorn hat stands on a wooden ship deck, leans forward with both hands as if on a railing, then raises one hand to shade his eyes and slowly scans the horizon from left to right, shoulders slumped with fatigue.
+prompt=Static locked-off camera, wide shot, the whole body of a single man is visible from head to feet, standing in the middle of the frame on flat ground, realistic live-action film, natural light. An exhausted pirate captain in a long dark coat and a tricorn hat stands on a wooden ship deck, leans forward with both hands as if on a railing, then raises one hand to shade his eyes and slowly scans the horizon from left to right, shoulders slumped with fatigue.

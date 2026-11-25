@@ -1,0 +1,3 @@
+seed=5
+action=A proud ship captain in a blue coat stands on the deck giving orders, points forward energetically with his right arm, then stamps his foot and waves his crew on with both arms.
+prompt=Static locked-off camera, wide shot, the whole body of a single man is visible from head to feet, standing in the middle of the frame on flat ground, realistic live-action film, natural light. A proud ship captain in a blue coat stands on the deck giving orders, points forward energetically with his right arm, then stamps his foot and waves his crew on with both arms.

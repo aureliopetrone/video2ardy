@@ -1,0 +1,3 @@
+seed=4
+action=A drunk sailor in a striped shirt staggers on a wooden pier, sways from side to side, almost falls forward, catches his balance with his arms spread wide and laughs.
+prompt=Static locked-off camera, wide shot, the whole body of a single man is visible from head to feet, standing in the middle of the frame on flat ground, realistic live-action film, natural light. A drunk sailor in a striped shirt staggers on a wooden pier, sways from side to side, almost falls forward, catches his balance with his arms spread wide and laughs.

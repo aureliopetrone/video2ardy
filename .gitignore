@@ -1,0 +1,19 @@
+GVHMR/
+third_party_pytorch3d/
+venv_*/
+hf/
+bin/
+dl_official/
+extracted/work/
+*.log
+__pycache__/
+scratch/
+results/**/*.npz
+
+# third-party footage (GVHMR demo clip): kept local, not published
+clips/tennis.*
+extracted/tennis.npz
+results/tennis/
+
+# GVHMR outputs (contain the SMPL-X rest skeleton): regenerate with video_extractor.py
+extracted/
